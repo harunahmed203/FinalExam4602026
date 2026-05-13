@@ -72,29 +72,31 @@
 > Do not copy the invariant text from the spec.
 
 - **For nodes already finalized (in S):**
-  _A finalixed node is a node that is visted and put inot the visted set/popped from the queue._
+  _finalized node = a node that is visted and put inot the visted set/popped from the queue
+  This means its part of the shorest path from start node._
 
 - **For nodes not yet finalized (not in S):**
-  _Non-finalized node is unvisited none thats still in the node._
+  _Non-finalized node is unvisited none thats still in the node
+  is still being decided wheter to be added to shortest path._
 
 ### Part 3b: Why Each Phase Holds
 
 > One to two bullets per phase. Maintenance must mention nonnegative edge weights.
 
 - **Initialization : why the invariant holds before iteration 1:**
-  _Your answer here._
+  _because no nodes have been added to the path yet so invarant stays valid ._
 
 - **Maintenance : why finalizing the min-dist node is always correct:**
-  _Your answer here._
+  _ the next node with smallest weight(minimum distance from current node) so its finalized and added to shorest path ._
 
 - **Termination : what the invariant guarantees when the algorithm ends:**
-  _Your answer here._
+  _Algorithm ends when all nodes(relic rooms) are reached/finalized from S to T -> shorest path was reached._
 
 ### Part 3c: Why This Matters for the Route Planner
 
 > One sentence connecting correct distances to correct routing decisions.
 
-_Your answer here._
+_ It matters because in odre for the algorithm to generate the shorest path it must pick the best node from the options provided between each relic room      ._
 
 ---
 
@@ -105,9 +107,9 @@ _Your answer here._
 > State the failure mode. Then give a concrete counter-example using specific node names
 > or costs (you may use the illustration example from the spec). Three to five bullets.
 
-- **The failure mode:** _Your answer here._
+- **The failure mode:** _where the torch light runs out._
 - **Counter-example setup:** _Your answer here._
-- **What greedy picks:** _Your answer here._
+- **What greedy picks:** _It will alyways pick the shorest path/smallest weight to next node._
 - **What optimal picks:** _Your answer here._
 - **Why greedy loses:** _Your answer here._
 

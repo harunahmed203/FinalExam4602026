@@ -165,6 +165,21 @@ def dijkstra_invariant_check():
     str
         Your Part 3 README answers, written as a string.
         Must match what you wrote in README Part 3.
+        
+        finalized node = a node that is visted and put inot the visted set/popped from the queue
+  This means its part of the shorest path from start node
+  
+  Non-finalized node is unvisited none thats still in the node
+  is still being decided wheter to be added to shortest path
+  
+  because no nodes have been added to the path yet so invarant stays valid 
+  
+  the next node with smallest weight(minimum distance from current node) so its finalized and added to shorest path
+  
+  Algorithm ends when all nodes(relic rooms) are reached/finalized from S to T -> shorest path was reached
+  
+  It matters because in odre for the algorithm to generate the shorest path it must pick the best node from the options provided between each relic room      ._
+
 
     TODO
     """
