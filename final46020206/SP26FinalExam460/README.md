@@ -20,7 +20,8 @@
   _Shortest path wont always take in factor the relic rooms only from starting to ending node_
 
 - **What decision remains after all inter-location costs are known:**
-  _Its to create the best path by taking inot account tinerlocations & relic rooms._
+  _Its to create the best path by taking into account the relic rooms. It must build its path by
+  visitng all relic rooms in the most optimal way before reaching exit_
 
 - **Why this requires a search over orders (one sentence):**
   _because the path taken needs to check all possible nodes before making a decision/based on best choice for our fuel._
@@ -44,20 +45,20 @@
 
 | Property | greedy/shorest path|
 |---|---|
-| Data structure name |Graph,Priority Queue,Min heap,Visited set,   |
-| What the keys represent |Nodes = Start,Relic Rooms,End |
-| What the values represent | best distance from S to T|
-| Lookup time complexity |visited = O(1), O(nlogn) visited nodes in priotiy queue|
-| Why O(1) lookup is possible | because it will only apply to visited nodes|
+| Data structure name |dict{node}{node} where nodes are stored|
+| What the keys represent |U = source , V = its next destination |
+| What the values represent | best distance from current node and next node|
+| Lookup time complexity |O(1)|
+| Why O(1) lookup is possible | It allows a constant time because of its hash table implementation|
 
 ### Part 2c: Precomputation Complexity
 
 > State the total complexity and show the arithmetic. Two to three lines max.
 
-- **Number of Dijkstra runs:** _total relic node + S&T_
-- **Cost per run:** _O(nlogn)_
-- **Total complexity:** _O(nlogn)_
-- **Justification (one line):** _The dijkstra is used to find the shorets path from each source node_
+- **Number of Dijkstra runs:** _ k+2 _
+- **Cost per run:** _O(mlogn)_
+- **Total complexity:** _O((k+2)mlogn)_
+- **Justification (one line):** _Single shorest path runs once fro start node, relic rooms, exit node_
 
 ---
 
@@ -119,7 +120,8 @@ the  example will pick c as the next node even if the relic room is now futhure 
 
 - **What optimal picks:** _te best next node that will ensure you reach relic room in the shorest path possible towards the neasrest one ._
 
-- **Why greedy loses:** _Because by protitizine the smallest next node it doesnt consider relic rooms._
+- **Why greedy loses:** _Because by protitizine the smallest next node it doesnt consider relic rooms
+best local choice doesnt guarntee best gobal choice._
 
 ### What the Algorithm Must Explore
 
@@ -138,9 +140,9 @@ the  example will pick c as the next node even if the relic room is now futhure 
 
 | Component | Variable name in code | Data type | Description |
 |---|---|---|---|
-| Current location |node | | |
-| Relics already collected | | | |
-| Fuel cost so far | | | |
+| Current location |current_loc| string| which node where currently located |
+| Relics already collected | relics_remaining| set| will store how many relic rooms we still need |
+| Fuel cost so far |cost_so_far |int&float | how much cost we have during travesring the graph|
 
 ### Part 5b: Data Structure for Visited Relics
 
@@ -148,18 +150,19 @@ the  example will pick c as the next node even if the relic room is now futhure 
 
 | Property | Your answer |
 |---|---|
-| Data structure chosen | |
-| Operation: check if relic already collected | Time complexity: |
-| Operation: mark a relic as collected | Time complexity: |
-| Operation: unmark a relic (backtrack) | Time complexity: |
-| Why this structure fits | |
+| Data structure chosen |  a set |
+| Operation: check if relic already collected | Time complexity: O(1) |
+| Operation: mark a relic as collected | Time complexity: O(1)|
+| Operation: unmark a relic (backtrack) | Time complexity: O(1)|
+| Why this structure fits | a set is more effiecnt when adding and removing data compared to a list |
 
 ### Part 5c: Worst-Case Search Space
 
 > Two bullets.
 
-- **Worst-case number of orders considered:** _Your answer (in terms of k)._
-- **Why:** _One-line justification._
+- **Worst-case number of orders considered:** _k! = worst case ._
+- **Why:** _there is a possibilty that all nodes my be explores to find the bestroute
+ ._
 
 ---
 
@@ -170,7 +173,7 @@ the  example will pick c as the next node even if the relic room is now futhure 
 > Three bullets.
 
 - **What is tracked:** _the minimum distance from start node + the correct order of relic rooms visted._
-- **When it is used:** _When visiting a node/comparing with its neighboors/._
+- **When it is used:** _When visiting a node/comparing with neighboors/and a optimal route is found._
 - **What it allows the algorithm to skip:** _paths that cost more/nodes that cnat be reached/visted nodes._
 
 ### Part 6b: Lower Bound Estimation
@@ -182,13 +185,14 @@ _the next nodes adjacent to the current node + remaining relic rooms + its curre
 - **What the lower bound accounts for:** 
 _the smallest amount of torch fuel needed to vist the next node/relics/exit._
 - **Why it never overestimates:** 
-_Since its the shorest path, the other choices will be less cost or the same cost._
+_Since its the shorest path, the other choices will be less cost or the same cost
+we already competed the most optimal options._
 
 ### Part 6c: Pruning Correctness
 
 > One to two bullets. Explain why pruning is safe.
 
-- _Because pruning saves the path from picking another choice whic may increase the final cost
+- _Because pruning saves the path from picking another choice which may increase the final cost
 Our optimal solution cant make onther shorest path even with lower bound estimation
 ---
 
@@ -196,4 +200,17 @@ Our optimal solution cant make onther shorest path even with lower bound estimat
 
 > Bullet list. If none beyond lecture notes, write that.
 
-- _Your references here._
+- _Your references here
+
+Canvas Sources
+
+1.)Dijsktra video from canvas - https://www.youtube.com/watch?v=CmIQ29cUGiE._
+2.) DFS video from canvas - https://www.youtube.com/watch?v=84jNzUOY78c
+3.)Single Source Shortest Path Algorithms from canvas -> https://sdsu.instructure.com/courses/199070/pages/single-source-shortest-path-algorithms-2?module_item_id=5959856
+
+Non Cnavas Sources
+
+1.)Dijsktra implementation - https://www.youtube.com/watch?v=_B5cx-WD5EA
+2.) Dijskdtra how to - https://www.datacamp.com/tutorial/dijkstra-algorithm-in-python
+
+

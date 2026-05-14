@@ -26,22 +26,35 @@ from json.encoder import INFINITY
 # =============================================================================
 
 def explain_problem():
-    """
+    
+    return"""
     Returns
     -------
     str
         Your Part 1 README answers, written as a string.
         Must match what you wrote in README Part 1.
+        
+        ## Part 1: Problem Analysis
 
-        1.)Shortest path wont always take in factor the relic rooms only from starting to ending node
+> Document why this problem is not just a shortest-path problem. Three bullet points, one
+> per question. Each bullet should be 1-2 sentences max.
 
-        2.)Its to create the best path by taking inot account tinerlocations & relic rooms
+- **Why a single shortest-path run from S is not enough:**
+  _Shortest path wont always take in factor the relic rooms only from starting to ending node_
 
-        3.)because the path taken needs to check all possible nodes before making a decision/based on best choice for our fuel 
+- **What decision remains after all inter-location costs are known:**
+  _Its to create the best path by taking into account the relic rooms. It must build its path by
+  visitng all relic rooms in the most optimal way before reaching exit_
 
-    TODO
+- **Why this requires a search over orders (one sentence):**
+  _because the path taken needs to check all possible nodes before making a decision/based on best choice for our fuel._
+
+
+       
+    
     """
-    return "TODO"
+    #return 
+#todo
 
 
 # =============================================================================
@@ -142,9 +155,8 @@ def precompute_distances(graph, spawn, relics, exit_node):
     """
     #TOD -> placeholder for todo to run my code
     
-    sources = select_sources(spawn, relics, exit_node)
-
-    dist_table = {}
+    sources = select_sources(spawn, relics, exit_node) #our most importantnodes
+    dist_table = {} #create an empty dictionary for our nodes
 
     for start_node in sources:
         dist_table[start_node] = run_dijkstra(graph, start_node)
@@ -159,31 +171,58 @@ def precompute_distances(graph, spawn, relics, exit_node):
 # =============================================================================
 
 def dijkstra_invariant_check():
-    """
+    return"""
     Returns
     -------
     str
         Your Part 3 README answers, written as a string.
         Must match what you wrote in README Part 3.
         
-        finalized node = a node that is visted and put inot the visted set/popped from the queue
-  This means its part of the shorest path from start node
-  
-  Non-finalized node is unvisited none thats still in the node
-  is still being decided wheter to be added to shortest path
-  
-  because no nodes have been added to the path yet so invarant stays valid 
-  
-  the next node with smallest weight(minimum distance from current node) so its finalized and added to shorest path
-  
-  Algorithm ends when all nodes(relic rooms) are reached/finalized from S to T -> shorest path was reached
-  
-  It matters because in odre for the algorithm to generate the shorest path it must pick the best node from the options provided between each relic room      ._
+     
+     ## Part 3: Algorithm Correctness
 
+> Document your understanding of why Dijkstra produces correct distances.
+> Bullet points and short sentences throughout. No paragraphs.
 
-    TODO
+### Part 3a: What the Invariant Means
+
+> Two bullets: one for finalized nodes, one for non-finalized nodes.
+> Do not copy the invariant text from the spec.
+
+- **For nodes already finalized (in S):**
+  _finalized node = a node that is visted and put inot the visted set/popped from the queue
+  This means its part of the shorest path from start node._
+
+- **For nodes not yet finalized (not in S):**
+  _Non-finalized node is unvisited none thats still in the node
+  is still being decided wheter to be added to shortest path._
+
+### Part 3b: Why Each Phase Holds
+
+> One to two bullets per phase. Maintenance must mention nonnegative edge weights.
+
+- **Initialization : why the invariant holds before iteration 1:**
+  _because no nodes have been added to the path yet so invarant stays valid ._
+
+- **Maintenance : why finalizing the min-dist node is always correct:**
+  _ the next node with smallest weight(minimum distance from current node) so its finalized and added to shorest path ._
+
+- **Termination : what the invariant guarantees when the algorithm ends:**
+  _Algorithm ends when all nodes(relic rooms) are reached/finalized from S to T -> shorest path was reached._
+
+### Part 3c: Why This Matters for the Route Planner
+
+> One sentence connecting correct distances to correct routing decisions.
+
+_ It matters because in odre for the algorithm to generate the shorest path it must pick the best node from the options provided between each relic room      ._
+
+---
+     
+     
+    
     """
-    return "TODO"
+    #return 
+#todo
 
 
 # =============================================================================
@@ -191,15 +230,17 @@ def dijkstra_invariant_check():
 # =============================================================================
 
 def explain_search():
-    """
+
+    return"""
     Returns
     -------
     str
         Your Part 4 README answers, written as a string.
         Must match what you wrote in README Part 4.
         
-        
-        ### Why Greedy Fails
+        ## Part 4: Search Design
+
+### Why Greedy Fails
 
 > State the failure mode. Then give a concrete counter-example using specific node names
 > or costs (you may use the illustration example from the spec). Three to five bullets.
@@ -216,7 +257,8 @@ the  example will pick c as the next node even if the relic room is now futhure 
 
 - **What optimal picks:** _te best next node that will ensure you reach relic room in the shorest path possible towards the neasrest one ._
 
-- **Why greedy loses:** _Because by protitizine the smallest next node it doesnt consider relic rooms._
+- **Why greedy loses:** _Because by protitizine the smallest next node it doesnt consider relic rooms
+best local choice doesnt guarntee best gobal choice._
 
 ### What the Algorithm Must Explore
 
@@ -224,10 +266,19 @@ the  example will pick c as the next node even if the relic room is now futhure 
 
 - _The algortihm must exlpore possible orders of visitng paths to the relic room and pick the best path whihc will guarntee the shorest path._
 
+---
 
-    TODO
+      
+      
+      
+      
+      
+      
+    
     """
-    return "TODO"
+    #return
+    
+#todo
 
 
 # =============================================================================
@@ -304,7 +355,7 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
     
     if(len(relics_remaining)) == 0: #BaseCase = no more relic rooms available
         
-        total_cost = dist_table[exit_node][current_loc] + cost_so_far
+        total_cost = cost_so_far + dist_table[current_loc][exit_node]
         # our final cost is out dist table(collection of path taken) with our current location at the end
         #its also added with the the current cost for 
         if dist_table[current_loc][exit_node] == float('inf'):
@@ -312,21 +363,34 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
         
         if total_cost < best[0]:
             best[0] = total_cost
+            best[1] = relics_visited_order.copy()
             
         return
     if cost_so_far >= best[0]: #this is where your pruningn happens
         return
     
-   # for relic_next in list(relics_remaining):
+    for relic_next in list(relics_remaining): # this for loop will be our recursive case
+       
+        node_travel = dist_table[current_loc][relic_next]
+       
+        if node_travel == float('inf'):
+            continue
+        
+       
+        relics_remaining.remove(relic_next) #where we keep track of visited relic rooms
+        relics_visited_order.append(relic_next) #the ist added
         
         
             
         
-        
-        
-
-        
-    
+        _explore( dist_table = dist_table, current_loc= relic_next, 
+                 relics_remaining= relics_remaining,
+            relics_visited_order=relics_visited_order, 
+            cost_so_far=cost_so_far+ node_travel,
+            exit_node=exit_node, best = best)
+     
+        relics_remaining.add(relic_next) #this is for  bactracking from our relic rooms
+        relics_visited_order.pop()
     
     
     
@@ -368,7 +432,7 @@ def solve(graph, spawn, relics, exit_node):
     dist_table = precompute_distances(graph, spawn, relics, exit_node)
     #dist_table is the collection of distance chosen to be part of the shorest path from node ot node
     
-    return find_optimal_route(dist_table, relics, exit_node, spawn)
+    return find_optimal_route(dist_table, spawn, relics, exit_node)
     
     #pass
     #todo
