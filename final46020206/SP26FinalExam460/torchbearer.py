@@ -197,6 +197,33 @@ def explain_search():
     str
         Your Part 4 README answers, written as a string.
         Must match what you wrote in README Part 4.
+        
+        
+        ### Why Greedy Fails
+
+> State the failure mode. Then give a concrete counter-example using specific node names
+> or costs (you may use the illustration example from the spec). Three to five bullets.
+
+- **The failure mode:** _where a greedy algorithm picks the closet node ignoring relic room distances
+whihc would reslut in a worse outcome or torch running out _
+- **Counter-example setup:** _ if the possible nodes from S is
+1.) S -> a(3)
+2.) S -> b(6)
+3.) S -> c(2) 
+the  example will pick c as the next node even if the relic room is now futhure from that choice ._
+
+- **What greedy picks:** _It will alyways pick the next node with shorest path/smallest weight  ._
+
+- **What optimal picks:** _te best next node that will ensure you reach relic room in the shorest path possible towards the neasrest one ._
+
+- **Why greedy loses:** _Because by protitizine the smallest next node it doesnt consider relic rooms._
+
+### What the Algorithm Must Explore
+
+> One bullet. Must use the word "order."
+
+- _The algortihm must exlpore possible orders of visitng paths to the relic room and pick the best path whihc will guarntee the shorest path._
+
 
     TODO
     """
@@ -223,11 +250,26 @@ def find_optimal_route(dist_table, spawn, relics, exit_node):
     -------
     tuple[float, list[node]]
         (minimum_fuel_cost, ordered_relic_list)
-        Returns (float('inf'), []) if no valid route exists.
-
-    TODO
+        Returns (float('inf'), []) if no valid route exists.    
     """
-    pass
+    
+    best_route = [float('inf'), []] # will represent the optimal route to take
+    
+    #then we recurse call the explore function to find the next node
+    
+    _explore( dist_table = dist_table, current_loc=spawn, relics_remaining= set(relics),
+            relics_visited_order= [], cost_so_far =0, exit_node= exit_node, best = best_route)
+    
+    #cost so far is set to 0 at the begining
+    # nothing stored in relics visiting order
+    
+    
+    
+    return(best_route[0], best_route[1])
+    
+    
+    #pass
+    #todo
 
 
 def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
@@ -252,14 +294,53 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
     None
         Updates best in place.
 
-    TODO
+    
     Implement: base case, pruning, recursive case, backtracking.
 
     REQUIRED: Add a 1-2 sentence comment near your pruning condition
     explaining why it is safe (cannot skip the optimal solution).
     This comment is graded.
     """
-    pass
+    
+    if(len(relics_remaining)) == 0: #BaseCase = no more relic rooms available
+        
+        total_cost = dist_table[exit_node][current_loc] + cost_so_far
+        # our final cost is out dist table(collection of path taken) with our current location at the end
+        #its also added with the the current cost for 
+        if dist_table[current_loc][exit_node] == float('inf'):
+            return
+        
+        if total_cost < best[0]:
+            best[0] = total_cost
+            
+        return
+    if cost_so_far >= best[0]: #this is where your pruningn happens
+        return
+    
+   # for relic_next in list(relics_remaining):
+        
+        
+            
+        
+        
+        
+
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    #Pruning explanation: Since there inst any negative weights(like -2) your'e only left with
+    #two options, you either pick a path that will reslut on a higer total cost or a path which
+    #remains the shorest path so you can just cut off the firdt option
+    
+    #pass
+    #todo
 
 
 # =============================================================================
@@ -284,7 +365,10 @@ def solve(graph, spawn, relics, exit_node):
     
     """
     
-    return find_optimal_route(dist_table)
+    dist_table = precompute_distances(graph, spawn, relics, exit_node)
+    #dist_table is the collection of distance chosen to be part of the shorest path from node ot node
+    
+    return find_optimal_route(dist_table, relics, exit_node, spawn)
     
     #pass
     #todo

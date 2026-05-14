@@ -1,7 +1,7 @@
 # The Torchbearer
 
-**Student Name:** ___________________________
-**Student ID:** ___________________________
+**Student Name:** Harun Ahmed
+**Student ID:** 132180465
 **Course:** CS 460 – Algorithms | Spring 2026
 
 > This README is your project documentation. Write it the way a developer would document
@@ -107,17 +107,25 @@ _ It matters because in odre for the algorithm to generate the shorest path it m
 > State the failure mode. Then give a concrete counter-example using specific node names
 > or costs (you may use the illustration example from the spec). Three to five bullets.
 
-- **The failure mode:** _where the torch light runs out._
-- **Counter-example setup:** _Your answer here._
-- **What greedy picks:** _It will alyways pick the shorest path/smallest weight to next node._
-- **What optimal picks:** _Your answer here._
-- **Why greedy loses:** _Your answer here._
+- **The failure mode:** _where a greedy algorithm picks the closet node ignoring relic room distances
+whihc would reslut in a worse outcome or torch running out _
+- **Counter-example setup:** _ if the possible nodes from S is
+1.) S -> a(3)
+2.) S -> b(6)
+3.) S -> c(2) 
+the  example will pick c as the next node even if the relic room is now futhure from that choice ._
+
+- **What greedy picks:** _It will alyways pick the next node with shorest path/smallest weight  ._
+
+- **What optimal picks:** _te best next node that will ensure you reach relic room in the shorest path possible towards the neasrest one ._
+
+- **Why greedy loses:** _Because by protitizine the smallest next node it doesnt consider relic rooms._
 
 ### What the Algorithm Must Explore
 
 > One bullet. Must use the word "order."
 
-- _Your answer here._
+- _The algortihm must exlpore possible orders of visitng paths to the relic room and pick the best path whihc will guarntee the shorest path._
 
 ---
 
@@ -130,7 +138,7 @@ _ It matters because in odre for the algorithm to generate the shorest path it m
 
 | Component | Variable name in code | Data type | Description |
 |---|---|---|---|
-| Current location | | | |
+| Current location |node | | |
 | Relics already collected | | | |
 | Fuel cost so far | | | |
 
@@ -161,24 +169,27 @@ _ It matters because in odre for the algorithm to generate the shorest path it m
 
 > Three bullets.
 
-- **What is tracked:** _Your answer here._
-- **When it is used:** _Your answer here._
-- **What it allows the algorithm to skip:** _Your answer here._
+- **What is tracked:** _the minimum distance from start node + the correct order of relic rooms visted._
+- **When it is used:** _When visiting a node/comparing with its neighboors/._
+- **What it allows the algorithm to skip:** _paths that cost more/nodes that cnat be reached/visted nodes._
 
 ### Part 6b: Lower Bound Estimation
 
 > Three bullets.
 
-- **What information is available at the current state:** _Your answer here._
-- **What the lower bound accounts for:** _Your answer here._
-- **Why it never overestimates:** _Your answer here._
+- **What information is available at the current state:** 
+_the next nodes adjacent to the current node + remaining relic rooms + its current fuel cost._
+- **What the lower bound accounts for:** 
+_the smallest amount of torch fuel needed to vist the next node/relics/exit._
+- **Why it never overestimates:** 
+_Since its the shorest path, the other choices will be less cost or the same cost._
 
 ### Part 6c: Pruning Correctness
 
 > One to two bullets. Explain why pruning is safe.
 
-- _Your answer here._
-
+- _Because pruning saves the path from picking another choice whic may increase the final cost
+Our optimal solution cant make onther shorest path even with lower bound estimation
 ---
 
 ## References

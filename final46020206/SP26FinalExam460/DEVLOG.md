@@ -1,7 +1,7 @@
 # Development Log – The Torchbearer
 
-**Student Name:** ___________________________
-**Student ID:** ___________________________
+**Student Name:** Harun Ahmed
+**Student ID:** 132180465
 
 > Instructions: Write at least four dated entries. Required entry types are marked below.
 > Two to five sentences per entry is sufficient. Write entries as you go, not all in one
@@ -55,11 +55,11 @@ _Your entry here._
 | Part | Estimated Hours |
 |---|---|
 | Part 1: Problem Analysis | 15 -30 min|
-| Part 2: Precomputation Design |3 hours |
+| Part 2: Precomputation Design |3 hours -> i coded first before part 7 |
 | Part 3: Algorithm Correctness |1-2 hours |
-| Part 4: Search Design | |
-| Part 5: State and Search Space | |
-| Part 6: Pruning | |
+| Part 4: Search Design | 2 hours|
+| Part 5: State and Search Space |  |
+| Part 6: Pruning | 1-2 hours|
 | Part 7: Implementation | |
 | README and DEVLOG writing | |
 | **Total** | |
